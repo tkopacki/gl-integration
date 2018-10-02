@@ -19,4 +19,4 @@ let server = http.createServer((request, response) => {
         response.end();
     }
 });
-server.listen(process.env.port);
+server.listen(process.env.PORT);
