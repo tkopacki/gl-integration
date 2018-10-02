@@ -13,6 +13,7 @@ let containerSpec = {
         }
     }
 }
+const API_SECRET = fs.readFileSync("/var/run/secrets/APITOKEN");
 
 function createContainer(projectID, issueID, name, project, projectWithNamespace, branch) {
     var spec = JSON.parse(JSON.stringify(containerSpec));
@@ -44,7 +45,7 @@ function createContainer(projectID, issueID, name, project, projectWithNamespace
             return axios({
                 method: "POST",
                 url: process.env.gitlabapi + "/api/v4/projects/" + projectID + "/issues/" + issueID + "/notes",
-                headers: { "PRIVATE-TOKEN": process.env.apitoken },
+                headers: { "PRIVATE-TOKEN": API_SECRET },
                 data: { "body": NODEREDTMPL + ":" + port }
             })
         })
