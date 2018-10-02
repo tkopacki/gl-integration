@@ -20,4 +20,4 @@ let server = http.createServer((request, response) => {
     }
 });
 console.log("Starting app on port " + process.env.PORT);
-server.listen(8081);
+server.listen(process.env.PORT);
