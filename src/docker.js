@@ -23,21 +23,21 @@ function createContainer(projectID, issueID, name, project, projectWithNamespace
     spec.Env[2] = "BRANCH=" + branch;
     axios({
         method: "POST",
-        url: process.env.dockerapi + "/containers/create?name=" + name,
+        url: process.env.DOCKERAPI + "/containers/create?name=" + name,
         data: spec
     })
         .then(response => {
             console.log("created, now starting " + name);
             return axios({
                 method: "POST",
-                url: process.env.dockerapi + "/containers/" + name + "/start",
+                url: process.env.DOCKERAPI + "/containers/" + name + "/start",
             })
         })
         .then(response => {
             console.log("started, now inspecting " + name);
             return axios({
                 method: "GET",
-                url: process.env.dockerapi + "/containers/" + name + "/json",
+                url: process.env.DOCKERAPI + "/containers/" + name + "/json",
             })
         })
         .then(response => response.data.NetworkSettings.Ports["1880/tcp"][0]["HostPort"])
@@ -45,7 +45,7 @@ function createContainer(projectID, issueID, name, project, projectWithNamespace
             console.log("updating GL issue");
             return axios({
                 method: "POST",
-                url: process.env.gitlabapi + "/api/v4/projects/" + projectID + "/issues/" + issueID + "/notes",
+                url: process.env.GITLABAPI + "/api/v4/projects/" + projectID + "/issues/" + issueID + "/notes",
                 headers: { "PRIVATE-TOKEN": API_SECRET },
                 data: { "body": NODEREDTMPL + ":" + port }
             })
