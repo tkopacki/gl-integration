@@ -14,7 +14,7 @@ let containerSpec = {
         }
     }
 }
-const API_SECRET = fs.readFileSync("/var/run/secrets/APITOKEN");
+const API_SECRET = fs.readFileSync("/var/run/secrets/APITOKEN").toString();
 
 function createContainer(projectID, issueID, name, project, projectWithNamespace, branch) {
     var spec = JSON.parse(JSON.stringify(containerSpec));
