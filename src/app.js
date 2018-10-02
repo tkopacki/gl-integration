@@ -1,6 +1,6 @@
 const http = require('http');
 const handleRequest = require('./handler.js');
-
+const fs = require('fs');
 
 const GL_SECRET = fs.readFileSync("/var/run/secrets/INTTOKEN");
 let server = http.createServer((request, response) => {
