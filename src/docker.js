@@ -55,12 +55,14 @@ function createContainer(projectID, issueID, name, project, projectWithNamespace
 function removeContainer(name) {
     axios({
         method: "POST",
-        url: process.env.dockerapi + "/containers/" + name + "/stop",
+        socketPath: "/var/run/docker.sock",
+        url: "/containers/" + name + "/stop",
     })
         .then(response => {
             console.log("stopped, now deleting " + name); return axios({
                 method: "DELETE",
-                url: process.env.dockerapi + "/containers/" + name,
+                socketPath: "/var/run/docker.sock",
+                url: "/containers/" + name,
             })
         })
         .catch(error => console.log(error));
